@@ -54,8 +54,8 @@ export function ModalOrder({ isOpen, onClose }: ModalProps) {
     }
 
     useEffect(() => {
-        findDriversSelect()
-    }, [])
+        if (isOpen) findDriversSelect()
+    }, [isOpen])
 
     return (
         <Modal isOpen={isOpen} onClose={onClose}>
