@@ -19,8 +19,8 @@ export function Content() {
 
     return <Box shadow={'1'} maxWidth={'80vw'} margin="0 auto">
         <Tabs isFitted >
-            <TabList mb='1em'>{TABS.map(({description}) => <Tab>{description}</Tab>)}</TabList>
-            <TabPanels>{TABS.map(({Template}) => <TabPanel><Template/></TabPanel>)}</TabPanels>
+            <TabList mb='1em'>{TABS.map(({description}, index) => <Tab key={index}>{description}</Tab>)}</TabList>
+            <TabPanels>{TABS.map(({Template}, index) => <TabPanel key={index}><Template/></TabPanel>)}</TabPanels>
         </Tabs>
     </Box>
 }

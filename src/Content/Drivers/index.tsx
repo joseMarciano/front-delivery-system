@@ -1,36 +1,54 @@
-import { Box, Button, Flex, Table, TableCaption, TableContainer, Tbody, Td, Tfoot, Th, Thead, Tr } from "@chakra-ui/react"
+import httpClient from '../../configs/axios'
+import { Box, Button, Flex, Table, TableContainer, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react"
 import { GoPlus } from 'react-icons/go'
 import { HiRefresh } from 'react-icons/hi'
+import { useState } from 'react'
+
+const basePath = 'drivers'
+
+type Driver = {
+    id: string,
+    name: string
+}
 
 export function Drivers() {
+    const [isSearching, setIsSearching] = useState(false)
+    const [drivers, setDrivers] = useState<Driver[]>([])
 
+
+    const fillDriversList = (drivers: Driver[]) => setDrivers(drivers)
+
+    const refresh = async () => {
+        try {
+            setIsSearching(true)
+            const response = await httpClient.get<Driver[]>(basePath)
+            fillDriversList(response.data)
+        } finally {
+            setIsSearching(false)
+        }
+    }
 
     return <Box>
         <Flex justifyContent={'space-between'}>
-            <Button colorScheme={'green'} leftIcon={<GoPlus />}>Driver</Button>
-            <Button colorScheme={'blue'} leftIcon={<HiRefresh />}>Refresh</Button>
+            <Button isLoading={isSearching} colorScheme={'green'} leftIcon={<GoPlus />}>Driver</Button>
+            <Button isLoading={isSearching} onClick={refresh} colorScheme={'blue'} leftIcon={<HiRefresh />}>Refresh</Button>
         </Flex>
-        
+
         <TableContainer mt={5}>
             <Table variant='simple'>
                 <Thead>
                     <Tr>
                         <Th>Identifier</Th>
                         <Th>Name</Th>
-                        <Th>Created at </Th>
                     </Tr>
                 </Thead>
                 <Tbody>
-                    <Tr>
-                        <Td>28fde6f5-ff5b-41b5-8cae-780444f0fa95</Td>
-                        <Td>John</Td>
-                        <Td>24/05/2022</Td>
-                    </Tr>
-                    <Tr>
-                        <Td>28fde6f5-ff5b-41b5-8cae-780444f0fa95</Td>
-                        <Td>John</Td>
-                        <Td>24/05/2022</Td>
-                    </Tr>
+                    {drivers.map((driver) => (
+                        <Tr key={driver.id}>
+                            <Td>{driver.id}</Td>
+                            <Td>{driver.name}</Td>
+                        </Tr>
+                    ))}
                 </Tbody>
             </Table>
         </TableContainer>
