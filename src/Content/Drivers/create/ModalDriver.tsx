@@ -39,7 +39,7 @@ export function ModalDriver({ isOpen, onClose }: ModalProps) {
                     <Input placeholder='Name' value={name} onChange={(e) => setName(e.target.value)} />
                 </ModalBody>
                 <ModalFooter>
-                    <Button isLoading={isSaving}  variant='ghost' onClick={onClose}>Cancel</Button>
+                    <Button mr={2} isLoading={isSaving}  variant='ghost' onClick={onClose}>Cancel</Button>
                     <Button isLoading={isSaving} onClick={save} disabled={name.length < 3} colorScheme='blue'>
                         Save
                     </Button>

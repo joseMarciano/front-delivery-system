@@ -79,7 +79,7 @@ export function ModalOrder({ isOpen, onClose }: ModalProps) {
                     </VStack>
                 </ModalBody>
                 <ModalFooter>
-                    <Button isLoading={isSaving} variant='ghost' onClick={onClose}>Cancel</Button>
+                    <Button mr={2} isLoading={isSaving} variant='ghost' onClick={onClose}>Cancel</Button>
                     <Button isLoading={isSaving} disabled={disableSaveButton()} onClick={save} colorScheme='blue'>
                         Save
                     </Button>
