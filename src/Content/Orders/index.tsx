@@ -1,7 +1,9 @@
-import { Badge, Box, Button, Flex, Table, TableCaption, TableContainer, Tbody, Td, Tfoot, Th, Thead, Tr, useDisclosure } from "@chakra-ui/react"
+import { Badge, Box, Button, Flex, Icon, Table, TableCaption, TableContainer, Tbody, Td, Tfoot, Th, Thead, Tr, useDisclosure } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
 import { GoPlus } from 'react-icons/go'
 import { HiRefresh } from 'react-icons/hi'
+import { FiMapPin } from 'react-icons/fi'
+import { FaMapMarkerAlt } from 'react-icons/fa'
 import httpClient from '../../configs/axios'
 import { ModalOrder } from "./create/ModalOrder"
 
@@ -69,6 +71,7 @@ export function Orders() {
                             <Th>Description</Th>
                             <Th>Status</Th>
                             <Th>Delivered at</Th>
+                            <Th></Th>
                         </Tr>
                     </Thead>
                     <Tbody>
@@ -78,6 +81,12 @@ export function Orders() {
                                 <Td>{order.description}</Td>
                                 <Td> <BadgeStatusOrder keyOrder={order.statusOrder} /></Td>
                                 <Td>{order.deliveredAt}</Td>
+                                <Td>
+                                    { order.statusOrder !== 'IN_PROGRESS' 
+                                    ? <Icon cursor={'pointer'} color={'gray'} boxSize={6} as={FiMapPin} />
+                                    : <Icon cursor={'pointer'} color={'gray'} boxSize={6} as={FaMapMarkerAlt} />}
+                                    
+                                </Td>
                             </Tr>
                         ))}
                     </Tbody>
