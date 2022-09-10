@@ -69,6 +69,8 @@ export function ModalOrder({ isOpen, onClose }: ModalProps) {
                         <Select placeholder='Select a destiny' value={destiny} onChange={(e) => setDestiny(e.target.value)}>
                             <option value="destiny-1">Destiny 1</option>
                             <option value="destiny-2">Destiny 2</option>
+                            <option value="destiny-3">Destiny 3</option>
+                            <option value="destiny-4">Destiny 4</option>
                         </Select>
 
                         <Select placeholder='Select a driver' value={driverId} onChange={(e) => setDriverId(e.target.value)}>
