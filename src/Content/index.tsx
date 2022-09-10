@@ -1,5 +1,6 @@
 import { Box, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react"
 import { Drivers } from "./Drivers"
+import { Orders } from "./Orders"
 
 const TABS = [
     {
@@ -10,7 +11,7 @@ const TABS = [
     {
         key: 'ORDER',
         description: 'Orders',
-        Template: () => <>Teste2</>
+        Template: Orders
     }
 ]
 
