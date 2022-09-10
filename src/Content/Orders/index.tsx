@@ -1,4 +1,4 @@
-import { Badge, Box, Button, Flex, Icon, Table, TableCaption, TableContainer, Tbody, Td, Tfoot, Th, Thead, Tr, useDisclosure } from "@chakra-ui/react"
+import { Badge, Box, Button, Flex, Icon, Table, TableContainer, Tbody, Td, Th, Thead, Tr, useDisclosure } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
 import { GoPlus } from 'react-icons/go'
 import { HiRefresh } from 'react-icons/hi'
