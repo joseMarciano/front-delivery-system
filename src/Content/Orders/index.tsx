@@ -67,7 +67,7 @@ export function Orders() {
                         <Tr>
                             <Th>Identifier</Th>
                             <Th>Description</Th>
-                            <Th>statusOrder</Th>
+                            <Th>Status</Th>
                             <Th>Delivered at</Th>
                         </Tr>
                     </Thead>

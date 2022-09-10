@@ -7,7 +7,7 @@ import { ModalDriver } from './create/ModalDriver'
 
 const basePath = 'drivers'
 
-type Driver = {
+export type Driver = {
     id: string,
     name: string
 }
