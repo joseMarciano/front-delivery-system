@@ -6,6 +6,7 @@ import { FiMapPin } from 'react-icons/fi'
 import { FaMapMarkerAlt } from 'react-icons/fa'
 import httpClient from '../../configs/axios'
 import { ModalOrder } from "./create/ModalOrder"
+import { ModalOrderMapping } from "./mapping/ModalOrderMapping"
 
 const basePath = 'orders'
 
@@ -19,14 +20,18 @@ type Order = {
 }
 
 export function Orders() {
-    const { isOpen, onClose, onOpen } = useDisclosure({ id: 'order-modal' })
+    const orderModalDisclosure = useDisclosure()
+    const mappingModalDisclosure = useDisclosure()
+
     const [isSearching, setIsSearching] = useState(false)
     const [orders, setOrder] = useState<Order[]>([])
-
-
-
-    const onCloseProxy = () => {
-        onClose()
+  
+    const onCloseOrderModalProxy = () => {
+        orderModalDisclosure.onClose()
+        refresh()
+    }
+    const onCloseOrderModalMappingProxy = () => {
+        mappingModalDisclosure.onClose()
         refresh()
     }
 
@@ -59,7 +64,7 @@ export function Orders() {
     return <>
         <Box>
             <Flex justifyContent={'space-between'}>
-                <Button onClick={onOpen} isLoading={isSearching} colorScheme={'green'} leftIcon={<GoPlus />}>Order</Button>
+                <Button onClick={orderModalDisclosure.onOpen} isLoading={isSearching} colorScheme={'green'} leftIcon={<GoPlus />}>Order</Button>
                 <Button onClick={refresh} isLoading={isSearching} colorScheme={'blue'} leftIcon={<HiRefresh />}>Refresh</Button>
             </Flex>
 
@@ -83,9 +88,10 @@ export function Orders() {
                                 <Td>{order.deliveredAt}</Td>
                                 <Td>
                                     { order.statusOrder !== 'IN_PROGRESS' 
-                                    ? <Icon cursor={'pointer'} color={'gray'} boxSize={6} as={FiMapPin} />
-                                    : <Icon cursor={'pointer'} color={'gray'} boxSize={6} as={FaMapMarkerAlt} />}
-                                    
+                                    ? <Icon  cursor={'pointer'} color={'gray'} boxSize={6} as={FiMapPin} />
+                                    : <Icon onClick={mappingModalDisclosure.onOpen}  cursor={'pointer'} color={'gray'} boxSize={6} as={FaMapMarkerAlt} />
+                                    }
+                                   
                                 </Td>
                             </Tr>
                         ))}
@@ -93,7 +99,8 @@ export function Orders() {
                 </Table>
             </TableContainer>
         </Box>
-        <ModalOrder isOpen={isOpen} onClose={onCloseProxy} />
+        <ModalOrder isOpen={orderModalDisclosure.isOpen} onClose={onCloseOrderModalProxy} />
+        <ModalOrderMapping isOpen={mappingModalDisclosure.isOpen} onClose={onCloseOrderModalMappingProxy} />
     </>
 }
 
