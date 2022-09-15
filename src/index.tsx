@@ -6,7 +6,9 @@ import ReactDOM from 'react-dom/client'
 import { ChakraProvider } from '@chakra-ui/react'
 import { Header } from './Header'
 import { Content } from './Content'
+import { SockJs } from './configs/WebSocket'
 
+SockJs.getInstance()
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -16,7 +18,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <ChakraProvider>
-      <Header/>
+      <Header />
       <Content />
     </ChakraProvider>
   </React.StrictMode>
