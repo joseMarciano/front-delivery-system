@@ -22,6 +22,9 @@ This application is responsible to show information in real time about Orders
 ![Badge](https://img.shields.io/badge/Leaflet--%2361DAFB?style=for-the-badge&logo=Leaflet&color=199900)
 ![Badge](https://img.shields.io/badge/Docker--%2361DAFB?style=for-the-badge&logo=Docker&color=2496ED)
 
+## Demo
+![Alt Text](/public/demo.gif)
+
 ##  :rocket: How to run the application
 - In the root directory run `npm install`
 - In the root directory run `npm start`
