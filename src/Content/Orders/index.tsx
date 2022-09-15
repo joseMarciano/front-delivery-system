@@ -1,5 +1,5 @@
 import { Badge, Box, Button, Flex, Icon, Table, TableContainer, Tbody, Td, Th, Thead, Tr, useDisclosure } from "@chakra-ui/react"
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { GoPlus } from 'react-icons/go'
 import { HiRefresh } from 'react-icons/hi'
 import { FiMapPin } from 'react-icons/fi'
@@ -12,7 +12,7 @@ const basePath = 'orders'
 
 type StatusOrder = 'CREATED' | 'DELIVERED' | 'IN_PROGRESS'
 
-type Order = {
+export type Order = {
     id: string,
     description: string,
     statusOrder: StatusOrder,
@@ -20,19 +20,26 @@ type Order = {
 }
 
 export function Orders() {
+    const [currentOrderOpened, setCurrentOrder] = useState<Order>()
     const orderModalDisclosure = useDisclosure()
     const mappingModalDisclosure = useDisclosure()
 
     const [isSearching, setIsSearching] = useState(false)
     const [orders, setOrder] = useState<Order[]>([])
-  
+
     const onCloseOrderModalProxy = () => {
         orderModalDisclosure.onClose()
         refresh()
     }
     const onCloseOrderModalMappingProxy = () => {
+        setCurrentOrder(null as any as Order)
         mappingModalDisclosure.onClose()
         refresh()
+    }
+
+    const openMapModal = (order: Order) => {
+        setCurrentOrder(order)
+        mappingModalDisclosure.onOpen()
     }
 
     const fillOrdersList = (orders: Order[]) => {
@@ -87,11 +94,11 @@ export function Orders() {
                                 <Td> <BadgeStatusOrder keyOrder={order.statusOrder} /></Td>
                                 <Td>{order.deliveredAt}</Td>
                                 <Td>
-                                    { order.statusOrder !== 'IN_PROGRESS' 
-                                    ? <Icon  cursor={'pointer'} color={'gray'} boxSize={6} as={FiMapPin} />
-                                    : <Icon onClick={mappingModalDisclosure.onOpen}  cursor={'pointer'} color={'gray'} boxSize={6} as={FaMapMarkerAlt} />
+                                    {order.statusOrder !== 'IN_PROGRESS'
+                                        ? <Icon cursor={'pointer'} color={'gray'} boxSize={6} as={FiMapPin} />
+                                        : <Icon  onClick={() => openMapModal(order)} cursor={'pointer'} color={'gray'} boxSize={6} as={FaMapMarkerAlt} />
                                     }
-                                   
+
                                 </Td>
                             </Tr>
                         ))}
@@ -99,8 +106,8 @@ export function Orders() {
                 </Table>
             </TableContainer>
         </Box>
-        <ModalOrder isOpen={orderModalDisclosure.isOpen} onClose={onCloseOrderModalProxy} />
-        <ModalOrderMapping isOpen={mappingModalDisclosure.isOpen} onClose={onCloseOrderModalMappingProxy} />
+        <ModalOrder  isOpen={orderModalDisclosure.isOpen} onClose={onCloseOrderModalProxy} />
+    { !!currentOrderOpened && <ModalOrderMapping  order={currentOrderOpened} isOpen={mappingModalDisclosure.isOpen} onClose={onCloseOrderModalMappingProxy} />}
     </>
 }
 
